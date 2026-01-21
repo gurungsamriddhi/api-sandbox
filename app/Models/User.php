@@ -21,6 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'password_set',
+        'email_verified_at',
+        'last_login_at',
+        'otp_hash',
+        'otp_created_at',
+        'otp_expires_at',
+        'social_provider',
+        'social_id',
     ];
 
     /**
@@ -31,6 +39,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'otp_hash',           // optional: hide OTP hash from JSON responses
+        'otp_created_at',
+        'otp_expires_at',
     ];
 
     /**
@@ -39,8 +50,12 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+            'email_verified_at' => 'datetime',
+            'password'          => 'hashed',
+            'last_login_at'     => 'datetime',
+            'otp_created_at'    => 'datetime',
+            'otp_expires_at'    => 'datetime',
+            'password_set'      => 'boolean',
     ];
 
     public function forums()
